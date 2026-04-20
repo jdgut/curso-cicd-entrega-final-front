@@ -7,13 +7,28 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     coverage: {
-      reporter: ["text", "html"],
-      thresholds: {
+      reporter: ["text", "html"],      
+	include: [
+		"src/**/*.{js,ts,vue}"
+	],
+	
+	exclude: [
+		"src/main.*",
+		"src/types.*",
+		"**/*.d.ts",
+		"**/*.js",          // exclude transpiled JS if TS is source
+		"playwright.config.*"
+	],
+	thresholds: {
         lines: 50,
         functions: 50,
         branches: 40,
         statements: 50
       }
-    }
+    },
+	exclude: [
+		"tests/e2e/**",
+		"node_modules"
+	]
   }
 });
