@@ -15,7 +15,6 @@ export default defineConfig({
         "src/main.*",
         "src/types.*",
         "**/*.d.ts",
-        "**/*.js", // exclude transpiled JS if TS is source
         "playwright.config.*",
       ],
       thresholds: {

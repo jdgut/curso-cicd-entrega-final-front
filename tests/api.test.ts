@@ -1,29 +1,40 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-// 👇 vi.hoisted() garantiza que esto se ejecuta ANTES que vi.mock()
+// 👇 necesario por hoisting
 const mockApi = vi.hoisted(() => ({
   post: vi.fn(),
   get: vi.fn(),
 }));
 
-vi.mock("axios", () => ({
-  default: {
-    create: () => mockApi,
-  },
-}));
+vi.mock("axios", async () => {
+  const actual = await vi.importActual<typeof import("axios")>("axios");
 
-// 👇 IMPORT DESPUÉS del mock
-import {
+  return {
+    ...actual,
+    default: {
+      ...actual.default,
+      create: () => mockApi,
+    },
+  };
+});
+
+import * as apiModule from "../src/services/api";
+
+const {
   registerUser,
   loginUser,
   listTrips,
   loadSimulatedHeatmap,
-} from "../src/services/api";
+} = apiModule;
 
 describe("api service", () => {
   beforeEach(() => {
     mockApi.post.mockReset();
     mockApi.get.mockReset();
+  });
+
+  it("should load api module", () => {
+    expect(apiModule).toBeDefined();
   });
 
   it("registerUser should return data", async () => {
