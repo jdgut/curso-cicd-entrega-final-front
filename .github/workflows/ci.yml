@@ -78,7 +78,6 @@ jobs:
           retention-days: 7
 
       - name: SonarCloud Scan
-        if: github.ref == 'refs/heads/main'
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
