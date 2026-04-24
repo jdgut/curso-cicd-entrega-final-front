@@ -1,8 +1,6 @@
 import { render } from "@testing-library/vue";
 import { describe, expect, it } from "vitest";
-
 import HeatmapGrid from "../src/components/HeatmapGrid.vue";
-
 describe("HeatmapGrid", () => {
   it("renderiza celdas y conteos", () => {
     const { getByText } = render(HeatmapGrid, {
@@ -19,7 +17,6 @@ describe("HeatmapGrid", () => {
         },
       },
     });
-
     expect(getByText("Mapa de prueba")).toBeTruthy();
     expect(getByText("4 grupos")).toBeTruthy();
   });

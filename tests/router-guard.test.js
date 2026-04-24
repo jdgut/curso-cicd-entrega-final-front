@@ -1,15 +1,12 @@
 import { describe, expect, it } from "vitest";
-
 import router from "../src/router";
 import { clearUser, saveUser } from "../src/stores/session";
-
 describe("router guard dashboard", () => {
   it("redirige a home sin usuario", async () => {
     clearUser();
     await router.push("/dashboard");
     expect(router.currentRoute.value.fullPath).toBe("/");
   });
-
   it("permite dashboard con usuario", async () => {
     saveUser({
       id: 2,

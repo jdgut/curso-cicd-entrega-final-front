@@ -29,7 +29,6 @@
     "@types/node": "^22.7.4",
     "@typescript-eslint/parser": "^8.59.0",
     "@vitejs/plugin-vue": "^5.1.4",
-    "@vitest/coverage-istanbul": "^2.1.9",
     "@vitest/coverage-v8": "^2.1.2",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
@@ -41,7 +40,7 @@
     "vite": "^5.4.8",
     "vite-plugin-eslint": "^1.8.1",
     "vitest": "^2.1.2",
-    "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.1.6",
+    "vue-eslint-parser": "^9.4.3"
   }
 }
