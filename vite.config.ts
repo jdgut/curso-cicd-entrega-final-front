@@ -7,7 +7,8 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     coverage: {
-      reporter: ["text", "html"],
+      reporter: ["text", "json", "html", "lcov"],
+      reportsDirectory: "./coverage",
       include: ["src/**/*.{js,ts,vue}"],
 
       exclude: [

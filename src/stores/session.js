@@ -1,18 +1,19 @@
 const STORAGE_KEY = "movilidad_session_user";
 export function saveUser(user) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
 }
 export function getUser() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    return null;
-  }
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+        return null;
+    }
+    try {
+        return JSON.parse(raw);
+    }
+    catch {
+        return null;
+    }
 }
 export function clearUser() {
-  localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEY);
 }
