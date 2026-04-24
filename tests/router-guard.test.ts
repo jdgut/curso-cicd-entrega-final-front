@@ -11,7 +11,12 @@ describe("router guard dashboard", () => {
   });
 
   it("permite dashboard con usuario", async () => {
-    saveUser({ id: 2, email: "admin@eafit.edu.co", role: "administrador", created_at: "2026-01-01T10:00:00" });
+    saveUser({
+      id: 2,
+      email: "admin@eafit.edu.co",
+      role: "administrador",
+      created_at: "2026-01-01T10:00:00",
+    });
     await router.push("/dashboard");
     expect(router.currentRoute.value.fullPath).toBe("/dashboard");
   });

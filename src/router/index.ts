@@ -9,7 +9,7 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView
+      component: HomeView,
     },
     {
       path: "/dashboard",
@@ -17,9 +17,9 @@ const router = createRouter({
       component: DashboardView,
       beforeEnter: () => {
         return getUser() ? true : "/";
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 
 export default router;

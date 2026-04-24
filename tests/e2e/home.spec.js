@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('homepage loads', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByTestId('home-title')).toContainText('Movilidad');
+test("homepage loads", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByTestId("home-title")).toContainText("Movilidad");
 });
