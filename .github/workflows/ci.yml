@@ -63,7 +63,7 @@ jobs:
       - name: Run E2E Tests
         env:
           BASE_URL: http://localhost:4173
-        run: npx start-server-and-test preview http://localhost:4173 test:e2e
+        run: npx start-server-and-test 'npm run preview -- --port 4173' http://localhost:4173 'npm run test:e2e'
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
