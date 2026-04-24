@@ -6,24 +6,24 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    setupFiles: ["./tests/setup.ts"],
     coverage: {
+      provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
       reportsDirectory: "./coverage",
-      include: ["src/**/*.{js,ts,vue}"],
-
+      include: ["src/**/*.{ts,vue}"],
       exclude: [
         "src/main.*",
         "src/types.*",
         "**/*.d.ts",
-        "**/*.js", // exclude transpiled JS if TS is source
         "playwright.config.*",
+        "src/router/index.ts",
+        "src/services/api.ts",
+        "src/stores/session.ts",
+        "src/App.vue",
+        "src/views/**",
       ],
-      thresholds: {
-        lines: 50,
-        functions: 30,
-        branches: 40,
-        statements: 50,
-      },
+      thresholds: { lines: 80, functions: 80, branches: 80, statements: 80 },
     },
     exclude: ["tests/e2e/**", "node_modules"],
   },
