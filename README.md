@@ -13,6 +13,7 @@ SPA en español para registro, creación y participación en desplazamientos, ad
 ## Paleta de colores
 
 Diseño profesional con **Azul Rey** (#003DA5) como color primario:
+
 - **Primario:** Azul Rey (#003DA5)
 - **Secundario:** Azul Rey Medio (#0052CC)
 - **Terciario:** Azul Rey Claro (#005CE6)

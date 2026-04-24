@@ -14,10 +14,10 @@ describe("HeatmapGrid", () => {
             { state: "en_metro", count: 1 },
             { state: "en_desplazamiento_universidad", count: 2 },
             { state: "en_universidad", count: 3 },
-            { state: "en_desplazamiento_metro", count: 4 }
-          ]
-        }
-      }
+            { state: "en_desplazamiento_metro", count: 4 },
+          ],
+        },
+      },
     });
 
     expect(getByText("Mapa de prueba")).toBeTruthy();

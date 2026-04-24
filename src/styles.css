@@ -1,19 +1,24 @@
 :root {
-  --brand-primary: #003DA5;
-  --brand-secondary: #0052CC;
-  --brand-tertiary: #005CE6;
-  --brand-light: #F0F4FF;
-  --brand-lighter: #F8FAFF;
-  --brand-accent: #FF6B35;
-  --brand-ink: #1F2937;
-  --brand-muted: #6B7280;
+  --brand-primary: #003da5;
+  --brand-secondary: #0052cc;
+  --brand-tertiary: #005ce6;
+  --brand-light: #f0f4ff;
+  --brand-lighter: #f8faff;
+  --brand-accent: #ff6b35;
+  --brand-ink: #1f2937;
+  --brand-muted: #6b7280;
 }
 
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--brand-ink);
-  background: linear-gradient(180deg, var(--brand-lighter) 0%, #F9FAFB 50%, #FFFFFF 100%);
+  background: linear-gradient(
+    180deg,
+    var(--brand-lighter) 0%,
+    #f9fafb 50%,
+    #ffffff 100%
+  );
   min-height: 100vh;
 }
 
@@ -24,8 +29,12 @@ h3 {
 }
 
 .hero {
-  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-tertiary) 100%);
-  color: #FFFFFF;
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-tertiary) 100%
+  );
+  color: #ffffff;
   padding: 2.5rem 2rem;
   border-radius: 0.8rem;
   box-shadow: 0 16px 32px rgba(0, 61, 165, 0.15);
@@ -33,24 +42,24 @@ h3 {
 }
 
 .hero h1 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
 }
 
 .hero p {
-  color: #E3EEFF;
+  color: #e3eeff;
   font-size: 1.1rem;
   line-height: 1.6;
   margin: 0;
 }
 
 .heatmap-card {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 0.8rem;
   padding: 1.5rem;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   box-shadow: 0 4px 12px rgba(0, 61, 165, 0.08);
   transition: box-shadow 0.3s ease;
 }
@@ -103,13 +112,13 @@ h3 {
 .btn-primary {
   background-color: var(--brand-primary);
   border-color: var(--brand-primary);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .btn-primary:hover {
   background-color: var(--brand-secondary);
   border-color: var(--brand-secondary);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .btn-outline-primary {
@@ -120,16 +129,16 @@ h3 {
 .btn-outline-primary:hover {
   background-color: var(--brand-primary);
   border-color: var(--brand-primary);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .text-on-dark-blue {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 /* Tarjetas de información */
 .info-card {
-  background: #FFFFFF;
+  background: #ffffff;
   border-left: 4px solid var(--brand-primary);
   border-radius: 0.6rem;
   padding: 1.5rem;
@@ -149,13 +158,13 @@ h3 {
 }
 
 .card {
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   border-radius: 0.8rem;
 }
 
 .card-header {
-  background: linear-gradient(135deg, var(--brand-light), #FAFBFF);
-  border-bottom: 1px solid #E5E7EB;
+  background: linear-gradient(135deg, var(--brand-light), #fafbff);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 /* Badge/etiqueta */
@@ -165,5 +174,5 @@ h3 {
 
 /* Separadores y líneas */
 hr {
-  color: #E5E7EB;
+  color: #e5e7eb;
 }
