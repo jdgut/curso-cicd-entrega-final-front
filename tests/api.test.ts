@@ -20,12 +20,7 @@ vi.mock("axios", async () => {
 
 import * as apiModule from "../src/services/api";
 
-const {
-  registerUser,
-  loginUser,
-  listTrips,
-  loadSimulatedHeatmap,
-} = apiModule;
+const { registerUser, loginUser, listTrips, loadSimulatedHeatmap } = apiModule;
 
 describe("api service", () => {
   beforeEach(() => {
