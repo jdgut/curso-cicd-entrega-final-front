@@ -30,4 +30,8 @@ node_modules/
 dist/
 coverage/
 
+*.vue.js
+*.vue.ts
+playwright-report/
+
 

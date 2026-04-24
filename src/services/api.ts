@@ -2,15 +2,26 @@ import axios from "axios";
 import type { Heatmap, Trip, User } from "../types";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api"
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api",
 });
 
-export async function registerUser(email: string, password: string, role: "usuario" | "administrador"): Promise<User> {
-  const response = await api.post<User>("/users/register", { email, password, role });
+export async function registerUser(
+  email: string,
+  password: string,
+  role: "usuario" | "administrador",
+): Promise<User> {
+  const response = await api.post<User>("/users/register", {
+    email,
+    password,
+    role,
+  });
   return response.data;
 }
 
-export async function loginUser(email: string, password: string): Promise<User> {
+export async function loginUser(
+  email: string,
+  password: string,
+): Promise<User> {
   const response = await api.post<User>("/users/login", { email, password });
   return response.data;
 }
@@ -32,18 +43,35 @@ export async function createTrip(payload: {
   return response.data;
 }
 
-export async function joinTrip(tripId: number, actor_email: string): Promise<Trip> {
-  const response = await api.post<Trip>(`/trips/${tripId}/join`, { actor_email });
+export async function joinTrip(
+  tripId: number,
+  actor_email: string,
+): Promise<Trip> {
+  const response = await api.post<Trip>(`/trips/${tripId}/join`, {
+    actor_email,
+  });
   return response.data;
 }
 
-export async function leaveTrip(tripId: number, actor_email: string): Promise<Trip> {
-  const response = await api.post<Trip>(`/trips/${tripId}/leave`, { actor_email });
+export async function leaveTrip(
+  tripId: number,
+  actor_email: string,
+): Promise<Trip> {
+  const response = await api.post<Trip>(`/trips/${tripId}/leave`, {
+    actor_email,
+  });
   return response.data;
 }
 
-export async function updateTripState(tripId: number, actor_email: string, new_state: string): Promise<Trip> {
-  const response = await api.post<Trip>(`/trips/${tripId}/state`, { actor_email, new_state });
+export async function updateTripState(
+  tripId: number,
+  actor_email: string,
+  new_state: string,
+): Promise<Trip> {
+  const response = await api.post<Trip>(`/trips/${tripId}/state`, {
+    actor_email,
+    new_state,
+  });
   return response.data;
 }
 
@@ -53,6 +81,8 @@ export async function loadRealHeatmap(): Promise<Heatmap[]> {
 }
 
 export async function loadSimulatedHeatmap(): Promise<Heatmap[]> {
-  const response = await api.get<{ heatmaps: Heatmap[] }>("/trips/metrics/heatmap/simulated");
+  const response = await api.get<{ heatmaps: Heatmap[] }>(
+    "/trips/metrics/heatmap/simulated",
+  );
   return response.data.heatmaps;
 }

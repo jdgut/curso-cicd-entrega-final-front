@@ -12,7 +12,7 @@ describe("session store", () => {
       id: 1,
       email: "test@eafit.edu.co",
       role: "usuario",
-      created_at: "2026-01-01T10:00:00"
+      created_at: "2026-01-01T10:00:00",
     });
 
     expect(getUser()?.email).toBe("test@eafit.edu.co");
@@ -23,7 +23,7 @@ describe("session store", () => {
       id: 1,
       email: "test@eafit.edu.co",
       role: "usuario",
-      created_at: "2026-01-01T10:00:00"
+      created_at: "2026-01-01T10:00:00",
     });
     clearUser();
     expect(getUser()).toBeNull();

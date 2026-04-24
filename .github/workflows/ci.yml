@@ -1,0 +1,112 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - development
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  workflow_dispatch:
+
+jobs:
+  build-test-publish:
+    name: Build, Test and Publish Image
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.head_ref == 'development')
+    outputs:
+      image_repo: ${{ steps.image_meta.outputs.image }}
+      image_tag: ${{ steps.image_meta.outputs.tag }}
+      image_uri: ${{ steps.image_meta.outputs.image }}:${{ steps.image_meta.outputs.tag }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lint Dockerfile (Hadolint)
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run Prettier Check (Format)
+        run: npm run format:check
+
+      - name: Run ESLint (Linter)
+        run: npm run lint
+
+      - name: Run Typecheck (TypeScript)
+        run: npm run typecheck
+
+      - name: Run Unit Tests and Coverage
+        run: npm run test
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build app
+        run: npm run build
+
+      - name: Run E2E Tests
+        run: npm run test:e2e
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v4
+        if: always() # Se ejecuta aunque las pruebas fallen
+        with:
+          name: frontend-test-reports
+          path: |
+            coverage/
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+
+      # -------- Docker --------
+
+      - name: Determine image tag
+        id: image_meta
+        shell: bash
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}-front"
+          REPO_NAME="$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')"
+          TAG=$([[ "${GITHUB_REF_NAME}" == "main" ]] && echo "latest" || echo "dev")
+          echo "image=${{ vars.DOCKERHUB_USERNAME }}/$REPO_NAME" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        if: github.event_name == 'push'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.image_meta.outputs.image }}:${{ steps.image_meta.outputs.tag }}

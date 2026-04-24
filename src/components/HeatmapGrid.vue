@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import type { Heatmap } from "../types";
 
-const props = defineProps<{
+defineProps<{
   title: string;
   map: Heatmap;
 }>();
@@ -24,7 +24,7 @@ const prettyState = computed(() => ({
   en_metro: "En el metro",
   en_desplazamiento_universidad: "En desplazamiento a la Universidad",
   en_universidad: "En la Universidad",
-  en_desplazamiento_metro: "En desplazamiento al metro"
+  en_desplazamiento_metro: "En desplazamiento al metro",
 }));
 </script>
 
@@ -36,7 +36,10 @@ const prettyState = computed(() => ({
         v-for="cell in map.cells"
         :key="cell.state"
         class="heat-cell"
-        :style="{ backgroundColor: color(cell.count), color: textColor(cell.count) }"
+        :style="{
+          backgroundColor: color(cell.count),
+          color: textColor(cell.count),
+        }"
       >
         <p class="state">{{ prettyState[cell.state] }}</p>
         <p class="value">{{ cell.count }} grupos</p>

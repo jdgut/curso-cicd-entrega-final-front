@@ -16,7 +16,7 @@ const authMode = ref<"login" | "register">("register");
 const form = ref({
   email: "",
   password: "",
-  role: "usuario" as "usuario" | "administrador"
+  role: "usuario" as "usuario" | "administrador",
 });
 
 async function loadHeatmaps() {
@@ -43,7 +43,11 @@ async function submit() {
   try {
     const user =
       authMode.value === "register"
-        ? await registerUser(form.value.email, form.value.password, form.value.role)
+        ? await registerUser(
+            form.value.email,
+            form.value.password,
+            form.value.role,
+          )
         : await loginUser(form.value.email, form.value.password);
     saveUser(user);
     router.push("/dashboard");
@@ -67,7 +71,10 @@ onMounted(loadHeatmaps);
       <div class="container">
         <header class="hero">
           <h1 data-testid="home-title">Movilidad colaborativa EAFIT</h1>
-          <p class="hero-subtitle">Coordina desplazamientos entre metro y universidad de manera inteligente y transparente</p>
+          <p class="hero-subtitle">
+            Coordina desplazamientos entre metro y universidad de manera
+            inteligente y transparente
+          </p>
         </header>
       </div>
     </section>
@@ -79,28 +86,40 @@ onMounted(loadHeatmaps);
           <div class="col-12 col-md-6 col-lg-3">
             <div class="info-card">
               <h4>📍 Reporta desplazamientos</h4>
-              <p>Crea nuevos desplazamientos especificando ruta, horario y punto de encuentro para coordinar traslados con otros estudiantes.</p>
+              <p>
+                Crea nuevos desplazamientos especificando ruta, horario y punto
+                de encuentro para coordinar traslados con otros estudiantes.
+              </p>
             </div>
           </div>
 
           <div class="col-12 col-md-6 col-lg-3">
             <div class="info-card">
               <h4>👥 Únete a grupos</h4>
-              <p>Visualiza desplazamientos activos y únete a los que se adapten a tu horario y ruta preferenciales.</p>
+              <p>
+                Visualiza desplazamientos activos y únete a los que se adapten a
+                tu horario y ruta preferenciales.
+              </p>
             </div>
           </div>
 
           <div class="col-12 col-md-6 col-lg-3">
             <div class="info-card">
               <h4>📊 Estadísticas en tiempo real</h4>
-              <p>Consulta mapas de calor que muestran la concentración de usuarios en cada etapa del desplazamiento.</p>
+              <p>
+                Consulta mapas de calor que muestran la concentración de
+                usuarios en cada etapa del desplazamiento.
+              </p>
             </div>
           </div>
 
           <div class="col-12 col-md-6 col-lg-3">
             <div class="info-card">
               <h4>🔒 Seguro y auditado</h4>
-              <p>Todos los movimientos se registran en auditoría para garantizar transparencia y trazabilidad en los desplazamientos.</p>
+              <p>
+                Todos los movimientos se registran en auditoría para garantizar
+                transparencia y trazabilidad en los desplazamientos.
+              </p>
             </div>
           </div>
         </div>
@@ -112,7 +131,10 @@ onMounted(loadHeatmaps);
       <div class="container py-5">
         <div class="section-header mb-5">
           <h2>Vista previa: Gráficos de actualidad</h2>
-          <p class="text-muted">Datos simulados para demostración. Registrate para acceder a datos reales y participar en desplazamientos.</p>
+          <p class="text-muted">
+            Datos simulados para demostración. Registrate para acceder a datos
+            reales y participar en desplazamientos.
+          </p>
         </div>
 
         <div class="row g-4 mb-5">
@@ -121,7 +143,11 @@ onMounted(loadHeatmaps);
               <HeatmapGrid
                 v-for="map in heatmaps"
                 :key="map.transport_mode"
-                :title="map.transport_mode === 'caminando' ? 'Distribución - Desplazamientos a pie' : 'Distribución - Desplazamientos en bus'"
+                :title="
+                  map.transport_mode === 'caminando'
+                    ? 'Distribución - Desplazamientos a pie'
+                    : 'Distribución - Desplazamientos en bus'
+                "
                 :map="map"
               />
             </div>
@@ -130,19 +156,36 @@ onMounted(loadHeatmaps);
           <div class="col-12 col-lg-4">
             <div class="card h-100">
               <div class="card-header">
-                <h5 class="mb-0">{{ showRegisterForm ? (authMode === "register" ? "Crear cuenta" : "Iniciar sesión") : "Acceso a dashboard" }}</h5>
+                <h5 class="mb-0">
+                  {{
+                    showRegisterForm
+                      ? authMode === "register"
+                        ? "Crear cuenta"
+                        : "Iniciar sesión"
+                      : "Acceso a dashboard"
+                  }}
+                </h5>
               </div>
               <div class="card-body d-flex flex-column">
-                <p class="text-muted mb-3" v-if="!showRegisterForm">
-                  Inicia sesión con tu cuenta existente o regístrate para acceder al dashboard completo y gestionar desplazamientos.
+                <p v-if="!showRegisterForm" class="text-muted mb-3">
+                  Inicia sesión con tu cuenta existente o regístrate para
+                  acceder al dashboard completo y gestionar desplazamientos.
                 </p>
 
-                <form v-if="showRegisterForm" class="d-grid gap-3" @submit.prevent="submit">
+                <form
+                  v-if="showRegisterForm"
+                  class="d-grid gap-3"
+                  @submit.prevent="submit"
+                >
                   <div class="d-flex gap-2">
                     <button
                       type="button"
                       class="btn btn-sm"
-                      :class="authMode === 'login' ? 'btn-primary' : 'btn-outline-primary'"
+                      :class="
+                        authMode === 'login'
+                          ? 'btn-primary'
+                          : 'btn-outline-primary'
+                      "
                       @click="authMode = 'login'"
                     >
                       Iniciar sesión
@@ -150,7 +193,11 @@ onMounted(loadHeatmaps);
                     <button
                       type="button"
                       class="btn btn-sm"
-                      :class="authMode === 'register' ? 'btn-primary' : 'btn-outline-primary'"
+                      :class="
+                        authMode === 'register'
+                          ? 'btn-primary'
+                          : 'btn-outline-primary'
+                      "
                       @click="authMode = 'register'"
                     >
                       Registrarse
@@ -159,12 +206,25 @@ onMounted(loadHeatmaps);
 
                   <div>
                     <label class="form-label">Correo EAFIT</label>
-                    <input v-model="form.email" class="form-control" type="email" placeholder="tu.email@eafit.edu.co" required />
+                    <input
+                      v-model="form.email"
+                      class="form-control"
+                      type="email"
+                      placeholder="tu.email@eafit.edu.co"
+                      required
+                    />
                   </div>
 
                   <div>
                     <label class="form-label">Contraseña</label>
-                    <input v-model="form.password" class="form-control" type="password" placeholder="Mínimo 8 caracteres" minlength="8" required />
+                    <input
+                      v-model="form.password"
+                      class="form-control"
+                      type="password"
+                      placeholder="Mínimo 8 caracteres"
+                      minlength="8"
+                      required
+                    />
                   </div>
 
                   <div v-if="authMode === 'register'">
@@ -175,18 +235,41 @@ onMounted(loadHeatmaps);
                     </select>
                   </div>
 
-                  <button class="btn btn-primary" :disabled="loading" type="submit">
-                    {{ loading ? (authMode === "register" ? "Registrando..." : "Ingresando...") : (authMode === "register" ? "Crear cuenta" : "Iniciar sesión") }}
+                  <button
+                    class="btn btn-primary"
+                    :disabled="loading"
+                    type="submit"
+                  >
+                    {{
+                      loading
+                        ? authMode === "register"
+                          ? "Registrando..."
+                          : "Ingresando..."
+                        : authMode === "register"
+                          ? "Crear cuenta"
+                          : "Iniciar sesión"
+                    }}
                   </button>
 
-                  <button type="button" class="btn btn-outline-secondary" @click="showRegisterForm = false">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    @click="showRegisterForm = false"
+                  >
                     Cancelar
                   </button>
 
                   <p v-if="error" class="text-danger mb-0 small">{{ error }}</p>
                 </form>
 
-                <button v-else class="btn btn-primary btn-lg mt-auto" @click="authMode = 'login'; showRegisterForm = true">
+                <button
+                  v-else
+                  class="btn btn-primary btn-lg mt-auto"
+                  @click="
+                    authMode = 'login';
+                    showRegisterForm = true;
+                  "
+                >
                   Acceder ahora
                 </button>
               </div>
@@ -205,7 +288,10 @@ onMounted(loadHeatmaps);
             <div class="step-card">
               <div class="step-number">1</div>
               <h5>Registrate</h5>
-              <p>Crea una cuenta con tu correo institucional @eafit.edu.co sin necesidad de validación externa.</p>
+              <p>
+                Crea una cuenta con tu correo institucional @eafit.edu.co sin
+                necesidad de validación externa.
+              </p>
             </div>
           </div>
 
@@ -213,7 +299,10 @@ onMounted(loadHeatmaps);
             <div class="step-card">
               <div class="step-number">2</div>
               <h5>Crea o únete</h5>
-              <p>Inicia un nuevo desplazamiento o únete a uno existente que coincida con tu horario.</p>
+              <p>
+                Inicia un nuevo desplazamiento o únete a uno existente que
+                coincida con tu horario.
+              </p>
             </div>
           </div>
 
@@ -221,7 +310,10 @@ onMounted(loadHeatmaps);
             <div class="step-card">
               <div class="step-number">3</div>
               <h5>Coordina</h5>
-              <p>Avanza por los estados de desplazamiento conforme sucedan los traslados en tiempo real.</p>
+              <p>
+                Avanza por los estados de desplazamiento conforme sucedan los
+                traslados en tiempo real.
+              </p>
             </div>
           </div>
 
@@ -229,7 +321,10 @@ onMounted(loadHeatmaps);
             <div class="step-card">
               <div class="step-number">4</div>
               <h5>Visualiza datos</h5>
-              <p>Consulta gráficos en vivo de dónde están ubicados los grupos en cada momento del traslado.</p>
+              <p>
+                Consulta gráficos en vivo de dónde están ubicados los grupos en
+                cada momento del traslado.
+              </p>
             </div>
           </div>
         </div>
@@ -246,7 +341,11 @@ onMounted(loadHeatmaps);
 }
 
 .hero-section {
-  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-tertiary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-tertiary) 100%
+  );
   padding: 3rem 0;
 }
 
@@ -256,7 +355,7 @@ onMounted(loadHeatmaps);
 }
 
 .features-section {
-  background: #FAFBFF;
+  background: #fafbff;
 }
 
 .info-card {
@@ -267,7 +366,7 @@ onMounted(loadHeatmaps);
 }
 
 .heatmap-section {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 .section-header {
@@ -290,13 +389,15 @@ onMounted(loadHeatmaps);
 }
 
 .step-card {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 0.8rem;
   padding: 2rem 1.5rem;
   text-align: center;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .step-card:hover {
@@ -310,8 +411,12 @@ onMounted(loadHeatmaps);
   justify-content: center;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-tertiary));
-  color: #FFFFFF;
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary),
+    var(--brand-tertiary)
+  );
+  color: #ffffff;
   border-radius: 50%;
   font-size: 1.5rem;
   font-weight: 700;
@@ -324,6 +429,6 @@ onMounted(loadHeatmaps);
 }
 
 .instructions-section {
-  background: #F8FAFF;
+  background: #f8faff;
 }
 </style>
