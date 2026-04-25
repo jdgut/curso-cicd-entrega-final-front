@@ -1,0 +1,26 @@
+environment_name = "staging"
+aws_region       = "us-east-1"
+
+# Imagen construida y subida en el pipeline de CI
+docker_image_uri = "miusuario/frontend:staging"
+
+# IAM Role existente en la cuenta (mismo que usa backend y database)
+lab_role_arn = "arn:aws:iam::123456789012:role/LabRole"
+
+# Misma VPC y subnets que el backend y la database
+vpc_id     = "vpc-xxxxxxxxxxxxxxxxx"
+subnet_ids = ["subnet-xxxxxxxxxxxxxxxxx", "subnet-yyyyyyyyyyyyyyyyy"]
+
+# Configuración del contenedor
+container_port   = 3000
+task_cpu         = 256
+task_memory      = 512
+desired_count    = 1
+assign_public_ip = true
+health_check_path = "/"
+
+# DNS del ALB del backend (output del stack de backend)
+backend_alb_dns = "backend-staging-alb-xxxxxxxxxx.us-east-1.elb.amazonaws.com"
+
+# Variables extra opcionales (se mergean con las base)
+app_extra_environment = {}
