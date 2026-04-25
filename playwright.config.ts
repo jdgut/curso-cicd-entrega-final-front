@@ -5,15 +5,19 @@ export default defineConfig({
   fullyParallel: true,
   reporter: [["html", { outputFolder: "playwright-report" }]],
   use: {
-    baseURL: "http://localhost:4173",
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:4173",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
-  webServer: {
-    command: "npm run preview",
-    url: "http://localhost:4173",
-    reuseExistingServer: !process.env.CI,
-    stdout: "ignore",
-    stderr: "pipe",
-  },
+  ...(process.env.CI
+    ? {}
+    : {
+        webServer: {
+          command: "npm run preview",
+          url: "http://localhost:4173",
+          reuseExistingServer: true,
+          stdout: "ignore",
+          stderr: "pipe",
+        },
+      }),
 });
