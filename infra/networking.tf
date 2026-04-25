@@ -49,10 +49,10 @@ resource "aws_security_group" "frontend_ecs" {
   # Esto evita que el frontend pueda alcanzar otros servicios o internet directamente
   egress {
     description = "Hacia el ALB del backend (HTTP)"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [data.aws_vpc.shared.cidr_block]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = local.common_tags
