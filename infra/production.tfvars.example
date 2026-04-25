@@ -1,0 +1,20 @@
+environment_name = "production"
+aws_region       = "us-east-1"
+
+docker_image_uri = "miusuario/frontend:latest"
+
+lab_role_arn = "arn:aws:iam::123456789012:role/LabRole"
+
+vpc_id     = "vpc-xxxxxxxxxxxxxxxxx"
+subnet_ids = ["subnet-xxxxxxxxxxxxxxxxx", "subnet-yyyyyyyyyyyyyyyyy"]
+
+container_port    = 3000
+task_cpu          = 512
+task_memory       = 1024
+desired_count     = 2
+assign_public_ip  = true
+health_check_path = "/"
+
+backend_alb_dns = "backend-production-alb-xxxxxxxxxx.us-east-1.elb.amazonaws.com"
+
+app_extra_environment = {}
