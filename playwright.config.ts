@@ -9,9 +9,9 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
-  ...(process.env.CI
-    ? {}
-    : {
+  // Levanta servidor solo cuando NO hay URL externa definida
+  ...(!process.env.PLAYWRIGHT_BASE_URL
+    ? {
         webServer: {
           command: "npm run preview",
           url: "http://localhost:4173",
@@ -19,5 +19,6 @@ export default defineConfig({
           stdout: "ignore",
           stderr: "pipe",
         },
-      }),
+      }
+    : {}),
 });

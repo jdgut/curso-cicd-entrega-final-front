@@ -98,6 +98,12 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: Start preview server
+        run: npm run preview &
+
+      - name: Wait for preview server
+        run: npx wait-on http://localhost:4173 --timeout 30000
+
       - name: Run E2E Tests
         run: npm run test:e2e
 
