@@ -149,6 +149,8 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.image_meta.outputs.image }}:${{ steps.image_meta.outputs.tag }}
+          build-args: |
+            VITE_API_BASE_URL=http://${{ secrets.BACKEND_ALB_DNS_STAGING }}/api
 
   # ───────────────────────────────────────────────────────────
   # 2. DEPLOY STAGING

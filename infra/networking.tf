@@ -88,6 +88,8 @@ resource "aws_lb_target_group" "frontend" {
     matcher             = "200"
   }
 
+  
+
   tags = local.common_tags
 }
 
