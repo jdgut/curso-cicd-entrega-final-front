@@ -88,7 +88,9 @@ resource "aws_lb_target_group" "frontend" {
     matcher             = "200"
   }
 
-  
+  lifecycle {
+      create_before_destroy = true
+    }
 
   tags = local.common_tags
 }
