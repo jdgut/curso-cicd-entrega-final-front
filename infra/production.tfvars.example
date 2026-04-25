@@ -1,0 +1,11 @@
+environment_name = "production"
+
+docker_image_uri = "<dockerhub-username>/curso-cicd-entrega-final-front:latest"
+
+lab_role_arn = "arn:aws:iam::<account-id>:role/LabRole"
+vpc_id       = "vpc-xxxxxxxx"
+subnet_ids   = ["subnet-aaaaaaaa", "subnet-bbbbbbbb"]
+
+aws_region = "us-east-1"
+
+desired_count = 1
