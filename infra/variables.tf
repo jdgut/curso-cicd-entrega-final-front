@@ -36,7 +36,7 @@ variable "aws_region" {
 variable "container_port" {
   description = "Puerto en el que escucha el contenedor Next.js/Nuxt."
   type        = number
-  default     = 3000
+  default     = 80
 }
 
 variable "task_cpu" {
